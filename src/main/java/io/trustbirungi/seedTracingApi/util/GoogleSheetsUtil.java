@@ -93,7 +93,7 @@ public class GoogleSheetsUtil {
 					.execute();
 		} catch (Exception exc) {
 			//exc.printStackTrace();
-		
+
 			if(exc.getMessage().contains("Bad Request")) {
 				System.out.println("Error");
 				return;

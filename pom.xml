@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.trustbirungi</groupId>
-	<artifactId>Seed Tracing API</artifactId>
+	<artifactId>seed-tracing-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>seed-tracing-api</name>
+	<name>Seed Tracing API</name>
 	<description>API for the Seed Tracing App</description>
 
 	<properties>
@@ -81,6 +81,12 @@
 			<artifactId>google-api-services-sheets</artifactId>
 			<version>v4-rev614-1.18.0-rc</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-maven-plugin</artifactId>
+			<version>6.5.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -88,6 +94,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>6.5.5</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306/seed_tracing_db</url>
+					<user>root</user>
+					<password>&amp;#73andromeda&amp;#73</password>
+					<locations>classpath:db/migration</locations>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

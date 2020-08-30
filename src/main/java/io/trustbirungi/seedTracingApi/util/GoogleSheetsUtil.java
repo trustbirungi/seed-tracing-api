@@ -84,7 +84,6 @@ public class GoogleSheetsUtil {
 				.setApplicationName(APPLICATION_NAME)
 				.build();
 
-
 		ValueRange response = new ValueRange();
 
 		try {
@@ -100,7 +99,6 @@ public class GoogleSheetsUtil {
 			}
 		}
 		
-
 		List<List<Object>> values = response.getValues();
 
 		if (values == null || values.isEmpty()) {

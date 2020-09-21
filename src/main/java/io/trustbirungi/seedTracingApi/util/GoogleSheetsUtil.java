@@ -98,7 +98,7 @@ public class GoogleSheetsUtil {
 				return;
 			}
 		}
-		
+
 		List<List<Object>> values = response.getValues();
 
 		if (values == null || values.isEmpty()) {

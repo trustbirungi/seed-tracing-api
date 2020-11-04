@@ -7,12 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 /**
  * SheetRange - An entity class that represents the sheet_range table in the
  * database.
  * This holds the sheet ranges used to determine resumption points when
  * fetching more data from the Google spreadsheets.
  */
+@Data
 @Entity
 @Table(name = "sheet_range")
 public class SheetRange {

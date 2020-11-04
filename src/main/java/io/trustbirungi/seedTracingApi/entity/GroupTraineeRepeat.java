@@ -2,6 +2,9 @@ package io.trustbirungi.seedTracingApi.entity;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "group_trainee_repeat")
 public class GroupTraineeRepeat {
@@ -9,7 +12,6 @@ public class GroupTraineeRepeat {
     @Column(name = "id")
     private Integer id;
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
     @ManyToOne
     @JoinColumn(name = "parent_uid")
     private String parentUid;

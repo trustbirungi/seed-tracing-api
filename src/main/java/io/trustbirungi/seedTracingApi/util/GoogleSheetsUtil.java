@@ -77,9 +77,10 @@ public class GoogleSheetsUtil {
 	public static void main(String... args) throws IOException, GeneralSecurityException {
 		// Build a new authorized API client service.
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-		final String spreadsheetId = "1X6uoqe23EMmEWrFBbhGk_f-YJfTplfiHoiSu4w3GGVI";
-		final String range = getDataRange();
+		final String spreadsheetId = "1M_Bk4VKPuMwfH86AZg0mBK6d8Q5ndqEIDtnAO08JOxI";
+		//final String range = getDataRange();
 
+		final String range = "seed_multipliers_survey!A2:Z";
 		Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME)
 				.build();
@@ -109,7 +110,7 @@ public class GoogleSheetsUtil {
 			for (List row : values) {
 				rowCount++;
 				// Print columns A and E, which correspond to indices 0 and 4.
-				System.out.printf("%s, %s\n", row.get(0), row.get(7));
+				System.out.printf("%s, %s\n", row.get(0), row.get(12 ));
 			}
 		}
 
@@ -163,5 +164,49 @@ public class GoogleSheetsUtil {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void fetchSeedMultipliers() throws IOException, GeneralSecurityException{
+		// Build a new authorized API client service.
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		final String spreadsheetId = "1M_Bk4VKPuMwfH86AZg0mBK6d8Q5ndqEIDtnAO08JOxI";
+		//final String range = getDataRange();
+
+		final String range = "seed_multipliers_survey!A2:Z";
+		Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+				.setApplicationName(APPLICATION_NAME)
+				.build();
+
+		ValueRange response = new ValueRange();
+
+		try {
+			response = service.spreadsheets().values()
+					.get(spreadsheetId, range)
+					.execute();
+		} catch (Exception exc) {
+			//exc.printStackTrace();
+
+			if(exc.getMessage().contains("Bad Request")) {
+				System.out.println("Error");
+				return;
+			}
+		}
+
+		List<List<Object>> values = response.getValues();
+
+		if (values == null || values.isEmpty()) {
+			System.out.println("No data found.");
+		} else {
+			System.out.println("Name, Major");
+
+			for (List row : values) {
+				rowCount++;
+				// Print columns A and E, which correspond to indices 0 and 4.
+				System.out.printf("%s, %s\n", row.get(0), row.get(12 ));
+			}
+		}
+
+		System.out.println("\n\n" + rowCount);
+		setDataRange(rowCount);
 	}
 }

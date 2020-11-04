@@ -2,6 +2,9 @@ package io.trustbirungi.seedTracingApi.entity;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "trainee_repeat")
 public class TraineeRepeat {

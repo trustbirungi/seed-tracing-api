@@ -19,13 +19,13 @@ public class Buyers {
     private String metaUiVersion;
 
     @Column(name = "meta_submission_date")
-    private java.sql.Timestamp metaSubmissionDate;
+    private String metaSubmissionDate;
 
     @Column(name = "meta_is_complete")
     private String metaIsComplete;
 
     @Column(name = "meta_date_marked_as_complete")
-    private java.sql.Timestamp metaDateMarkedAsComplete;
+    private String metaDateMarkedAsComplete;
 
     @Column(name = "biodata_note")
     private String biodataNote;
@@ -43,7 +43,7 @@ public class Buyers {
     private String buyerSex;
 
     @Column(name = "date_of_birth")
-    private java.sql.Date dateOfBirth;
+    private String dateOfBirth;
 
     @Column(name = "farmer_group")
     private String farmerGroup;

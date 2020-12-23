@@ -14,13 +14,13 @@ public class GroupTraineeRepeat {
 
     @ManyToOne
     @JoinColumn(name = "parent_uid")
-    private String parentUid;
+    private SeedMultipliers parentUid;
 
     @Column(name = "group_trainee_name")
     private String groupTraineeName;
 
     @Column(name = "group_trainee_training_date")
-    private java.sql.Date groupTraineeTrainingDate;
+    private String groupTraineeTrainingDate;
 
     @Column(name = "group_trainee_district")
     private String groupTraineeDistrict;

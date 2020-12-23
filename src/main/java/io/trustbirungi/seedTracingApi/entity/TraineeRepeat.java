@@ -14,7 +14,7 @@ public class TraineeRepeat {
 
     @ManyToOne
     @JoinColumn(name = "parent_uid")
-    private String parentUid;
+    private SeedMultipliers parentUid;
 
     @Column(name = "trainee_first_name")
     private String traineeFirstName;
@@ -26,7 +26,7 @@ public class TraineeRepeat {
     private String traineeSex;
 
     @Column(name = "trainee_training_date")
-    private java.sql.Date traineeTrainingDate;
+    private String traineeTrainingDate;
 
     @Column(name = "trainee_district")
     private String traineeDistrict;

@@ -14,7 +14,7 @@ public class GroupTrainedOthersRepeat {
 
     @ManyToOne
     @JoinColumn(name = "parent_uid")
-    private String parentUid;
+    private SeedMultipliers parentUid;
 
     @Column(name = "trained_group_that_has_trained_others")
     private String trainedGroupThatHasTrainedOthers;

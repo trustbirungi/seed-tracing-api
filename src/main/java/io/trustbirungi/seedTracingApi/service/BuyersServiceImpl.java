@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import io.trustbirungi.seedTracingApi.entity.Buyers;
 import io.trustbirungi.seedTracingApi.repository.BuyersRepository;
@@ -13,8 +14,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BuyersServiceImpl implements BuyersService {
-	@Autowired
-	private BuyersRepository buyersRepository;
+	private final BuyersRepository buyersRepository;
+
+	public BuyersServiceImpl(BuyersRepository buyersRepository) {
+		this.buyersRepository = buyersRepository;
+	}
 
 	public List<Buyers> getBuyers() {
 		return (List<Buyers>) buyersRepository.findAll();
@@ -97,7 +101,7 @@ public class BuyersServiceImpl implements BuyersService {
 	public Map<String, Integer> getAgeCohorts() {
 		List<Integer> buyersAges = buyersRepository.getBuyersAges();
 
-		Map<String, Integer> ageCohorts = new HashMap<>();
+		Map<String, Integer> ageCohorts = new TreeMap<>();
 		ageCohorts.put("18 - 29", 0);
 		ageCohorts.put("30 - 39", 0);
 		ageCohorts.put("40 - 49", 0);
@@ -131,6 +135,8 @@ public class BuyersServiceImpl implements BuyersService {
 		return ageCohorts;
 	}
 
+
+
 	/**
 	 * @return the districts of the buyers
 	 */
@@ -138,7 +144,7 @@ public class BuyersServiceImpl implements BuyersService {
 	public Map<String, Integer> getBuyersDistricts() {
 		List<String> districtList = buyersRepository.getBuyersDistricts();
 
-		Map<String, Integer> districtMap = new HashMap<>();
+		Map<String, Integer> districtMap = new TreeMap<>();
 
 		for(String district : districtList) {
 			district = district.toLowerCase();

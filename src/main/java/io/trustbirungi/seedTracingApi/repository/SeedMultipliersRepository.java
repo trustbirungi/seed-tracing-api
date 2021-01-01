@@ -8,37 +8,42 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface SeedMultipliersRepository extends CrudRepository<SeedMultipliers, String> {
-	@Query(value = "SELECT COUNT(*) FROM seed_multipliers WHERE seed_multiplier_sex = 'No'",
+	@Query(value = "SELECT COUNT(*) FROM seed_multipliers WHERE "
+			+ "seed_multiplier_sex = 'No' OR seed_multiplier_sex = 'male'",
 			nativeQuery = true)
 	int getMaleMultipliersCount();
 
 	@Query(value = "SELECT COUNT(*) FROM seed_multipliers WHERE "
-			+ "seed_multiplier_sex = 'Yes'",
+			+ "seed_multiplier_sex = 'Yes' OR seed_multiplier_sex = 'female'",
 			nativeQuery = true)
 	int getFemaleMultipliersCount();
 
 	@Query(value = "SELECT AVG( YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth,"
-			+ " '%d/%m/%Y'))) as average_age  FROM seed_multipliers WHERE seed_multiplier_sex = "
-			+ "'No'", nativeQuery = true)
+			+ " '%d/%m/%Y'))) AS average_age  FROM seed_multipliers WHERE "
+			+ "seed_multiplier_sex = "
+			+ "'No' OR seed_multiplier_sex = 'male'", nativeQuery = true)
 	double getMaleAverageAge();
 
 	@Query(value = "SELECT AVG( YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth,"
-			+ " '%d/%m/%Y'))) as average_age  FROM seed_multipliers WHERE seed_multiplier_sex = "
-			+ "'Yes'", nativeQuery = true)
+			+ " '%d/%m/%Y'))) AS average_age  FROM seed_multipliers WHERE "
+			+ "seed_multiplier_sex = "
+			+ "'Yes' OR seed_multiplier_sex = 'female'", nativeQuery = true)
 	double getFemaleAverageAge();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM seed_multipliers WHERE seed_multiplier_sex = 'No'",
+			+ "'%d/%m/%Y')) AS age FROM seed_multipliers WHERE "
+			+ "seed_multiplier_sex = 'No' OR seed_multiplier_sex = 'male'",
 			nativeQuery =	true)
 	List<Integer> getMaleMultipliersAges();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM seed_multipliers WHERE seed_multiplier_sex = 'Yes'",
+			+ "'%d/%m/%Y')) AS age FROM seed_multipliers WHERE "
+			+ "seed_multiplier_sex = 'Yes' OR seed_multiplier_sex = 'female'",
 			nativeQuery =	true)
 	List<Integer> getFemaleMultipliersAges();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM seed_multipliers",
+			+ "'%d/%m/%Y')) AS age FROM seed_multipliers",
 			nativeQuery =	true)
 	List<Integer> getMultipliersAges();
 
@@ -61,10 +66,12 @@ public interface SeedMultipliersRepository extends CrudRepository<SeedMultiplier
 			+ "AS group_size  FROM seed_multipliers", nativeQuery = true)
 	List<Integer> getGroupSizes();
 
-	@Query(value = "SELECT AVG(female_members_quantity) as average_female_size  FROM seed_multipliers", nativeQuery = true)
+	@Query(value = "SELECT AVG(female_members_quantity) AS average_female_size"
+			+ "  FROM seed_multipliers", nativeQuery = true)
 	double getAverageFemaleMembersPerGroup();
 
-	@Query(value = "SELECT AVG(male_members_quantity) as average_male_size  FROM seed_multipliers", nativeQuery = true)
+	@Query(value = "SELECT AVG(male_members_quantity) AS average_male_size  "
+			+ "FROM seed_multipliers", nativeQuery = true)
 	double getAverageMaleMembersPerGroup();
 
 	@Query(value = "SELECT seed_multiplier_district FROM seed_multipliers", nativeQuery =

@@ -7,34 +7,39 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface BuyersRepository extends CrudRepository<Buyers, String> {
-	@Query(value = "SELECT COUNT(*) FROM buyers WHERE buyer_sex = 'No'", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM buyers WHERE buyer_sex = 'No' OR buyer_sex = 'male'",
+			nativeQuery = true)
 	int getMaleBuyersCount();
 
-	@Query(value = "SELECT COUNT(*) FROM buyers WHERE buyer_sex = 'No'", nativeQuery = true)
+	@Query(value = "SELECT COUNT(*) FROM buyers WHERE buyer_sex = 'Yes' OR "
+			+ "buyer_sex = 'female'",
+			nativeQuery = true)
 	int getFemaleBuyersCount();
 
 	@Query(value = "SELECT AVG( YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth,"
-			+ " '%d/%m/%Y'))) as average_age  FROM buyers WHERE buyer_sex = "
-			+ "'No'", nativeQuery = true)
+			+ " '%d/%m/%Y'))) AS average_age  FROM buyers WHERE buyer_sex = "
+			+ "'No' OR buyer_sex = 'male'", nativeQuery = true)
 	int getMaleBuyersAverageAge();
 
 	@Query(value = "SELECT AVG( YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth,"
-			+ " '%d/%m/%Y'))) as average_age  FROM buyers WHERE buyer_sex = "
-			+ "'Yes'", nativeQuery = true)
+			+ " '%d/%m/%Y'))) AS average_age  FROM buyers WHERE buyer_sex = "
+			+ "'Yes' OR buyer_sex = 'female'", nativeQuery = true)
 	int getFemaleBuyersAverageAge();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM buyers WHERE buyer_sex = 'No'",
+			+ "'%d/%m/%Y')) AS age FROM buyers WHERE buyer_sex = 'No' OR "
+			+ "buyer_sex = 'male'",
 			nativeQuery =	true)
 	List<Integer> getMaleBuyersAges();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM buyers WHERE buyer_sex = 'Yes'",
+			+ "'%d/%m/%Y')) AS age FROM buyers WHERE buyer_sex = 'Yes' "
+			+ "OR buyer_sex = 'female'",
 			nativeQuery =	true)
 	List<Integer> getFemaleBuyersAges();
 
 	@Query(value = "SELECT YEAR(now()) - YEAR(STR_TO_DATE(date_of_birth, "
-			+ "'%d/%m/%Y')) as age FROM buyers",
+			+ "'%d/%m/%Y')) AS age FROM buyers",
 			nativeQuery =	true)
 	List<Integer> getBuyersAges();
 

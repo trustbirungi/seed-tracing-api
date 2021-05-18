@@ -6,12 +6,14 @@ import io.trustbirungi.seedTracingApi.dto.BuyersAnalysisDto;
 import io.trustbirungi.seedTracingApi.entity.Buyers;
 import io.trustbirungi.seedTracingApi.service.BuyersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/buyers")
+@CrossOrigin
 public class BuyersController {
 	private final BuyersService buyersService;
 

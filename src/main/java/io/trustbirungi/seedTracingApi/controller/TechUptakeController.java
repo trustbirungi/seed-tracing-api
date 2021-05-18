@@ -5,12 +5,14 @@ import java.util.List;
 import io.trustbirungi.seedTracingApi.dto.TechUptakeAnalysisDto;
 import io.trustbirungi.seedTracingApi.entity.SeedMultipliers;
 import io.trustbirungi.seedTracingApi.service.TechUptakeService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/techUptake")
+@CrossOrigin
 public class TechUptakeController {
 	TechUptakeService techUptakeService;
 

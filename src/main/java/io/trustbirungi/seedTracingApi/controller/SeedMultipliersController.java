@@ -5,12 +5,14 @@ import java.util.List;
 import io.trustbirungi.seedTracingApi.dto.SeedMultipliersAnalysisDto;
 import io.trustbirungi.seedTracingApi.entity.SeedMultipliers;
 import io.trustbirungi.seedTracingApi.service.SeedMultipliersService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/seedMultipliers")
+@CrossOrigin
 public class SeedMultipliersController {
 	private final SeedMultipliersService seedMultipliersService;
 

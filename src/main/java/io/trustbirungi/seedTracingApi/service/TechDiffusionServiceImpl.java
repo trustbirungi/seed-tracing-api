@@ -45,12 +45,12 @@ public class TechDiffusionServiceImpl implements TechDiffusionService {
 
 	@Override
 	public double getFarmersWhoTrainedOthersPercent() {
-		return (techDiffusionRepository.getFarmersWhoTrainedOthersCount() / techDiffusionRepository.getTotalFarmersCount()) * 100;
+		return ((double)techDiffusionRepository.getFarmersWhoTrainedOthersCount() / (double)techDiffusionRepository.getTotalFarmersCount()) * 100;
 	}
 
 	@Override
 	public double getFarmersWhoTrainedOtherGroupsPercent() {
-		return (techDiffusionRepository.getFarmersWhoTrainedOtherGroupsCount() / techDiffusionRepository.getTotalFarmersCount()) * 100;
+		return ((double)techDiffusionRepository.getFarmersWhoTrainedOtherGroupsCount() / (double)techDiffusionRepository.getTotalFarmersCount()) * 100;
 	}
 
 	/**
@@ -60,8 +60,8 @@ public class TechDiffusionServiceImpl implements TechDiffusionService {
 	 */
 	@Override
 	public double getFemaleTrainedFarmersPercent() {
-		return (techDiffusionRepository.getTrainedFarmersWhoAreFemaleCount()
-				/ techDiffusionRepository.getTrainedFarmersTotalCount()) * 100;
+		return ((double)techDiffusionRepository.getTrainedFarmersWhoAreFemaleCount()
+				/ (double)techDiffusionRepository.getTrainedFarmersTotalCount()) * 100;
 	}
 
 	/**
@@ -71,13 +71,13 @@ public class TechDiffusionServiceImpl implements TechDiffusionService {
 	 */
 	@Override
 	public double getMaleTrainedFarmersPercent() {
-		return (techDiffusionRepository.getTrainedFarmersWhoAreMaleCount()
-				/ techDiffusionRepository.getTrainedFarmersTotalCount()) * 100;
+		return ((double)techDiffusionRepository.getTrainedFarmersWhoAreMaleCount()
+				/ (double)techDiffusionRepository.getTrainedFarmersTotalCount()) * 100;
 	}
 
 	@Override
 	public double getTrainedFarmersThatTrainedOtherFarmersPercent() {
-		return (techDiffusionRepository.getFarmersThatTrainedOtherFarmersCount() / techDiffusionRepository.getTotalFarmersCount()) * 100;
+		return ((double)techDiffusionRepository.getFarmersThatTrainedOtherFarmersCount() / (double)techDiffusionRepository.getTotalFarmersCount()) * 100;
 	}
 
 	@Override

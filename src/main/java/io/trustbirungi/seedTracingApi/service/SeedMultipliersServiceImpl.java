@@ -33,8 +33,9 @@ public class SeedMultipliersServiceImpl implements SeedMultipliersService{
 	 */
 	@Override
 	public double getMalePercent() {
-		int maleCount = seedMultipliersRepository.getMaleMultipliersCount();
-		int femaleCount = seedMultipliersRepository.getFemaleMultipliersCount();
+		double maleCount = seedMultipliersRepository.getMaleMultipliersCount();
+		double femaleCount =
+				seedMultipliersRepository.getFemaleMultipliersCount();
 		double malePercent = (maleCount/(maleCount + femaleCount)) * 100;
 
 		return malePercent;
@@ -45,8 +46,9 @@ public class SeedMultipliersServiceImpl implements SeedMultipliersService{
 	 */
 	@Override
 	public double getFemalePercent() {
-		int maleCount = seedMultipliersRepository.getMaleMultipliersCount();
-		int femaleCount = seedMultipliersRepository.getFemaleMultipliersCount();
+		double maleCount = seedMultipliersRepository.getMaleMultipliersCount();
+		double femaleCount =
+				seedMultipliersRepository.getFemaleMultipliersCount();
 		double femalePercent = (femaleCount/(maleCount + femaleCount)) * 100;
 
 		return femalePercent;
@@ -224,9 +226,9 @@ public class SeedMultipliersServiceImpl implements SeedMultipliersService{
 	 */
 	@Override
 	public double getIndividualMultipliersPercent() {
-		int individualMultipliers =
+		double individualMultipliers =
 				seedMultipliersRepository.getIndividualMultipliersCount();
-		int groupMultipliers =
+		double groupMultipliers =
 				seedMultipliersRepository.getGroupMultipliersCount();
 
 
@@ -238,9 +240,9 @@ public class SeedMultipliersServiceImpl implements SeedMultipliersService{
 	 */
 	@Override
 	public double getGroupMultipliersPercent() {
-		int individualMultipliers =
+		double individualMultipliers =
 				seedMultipliersRepository.getIndividualMultipliersCount();
-		int groupMultipliers =
+		double groupMultipliers =
 				seedMultipliersRepository.getGroupMultipliersCount();
 
 

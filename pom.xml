@@ -15,7 +15,7 @@
 	<description>API for the Seed Tracing App</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>25</java.version>
 	</properties>
 
 	<dependencies>
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.16</version>
+			<version>1.18.42</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
@@ -121,9 +121,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>6.5.5</version>
 				<configuration>
-					<url>jdbc:mysql://localhost:3306/seed_tracing_db</url>
-					<user>root</user>
-					<password>&amp;#73andromeda&amp;#73</password>
+					<url>jdbc:mysql://localhost:3306/<!--db_name--></url>
+					<user><!--db_username--></user>
+					<password><!--db_password--></password>
 					<locations>classpath:db/migration</locations>
 				</configuration>
 			</plugin>

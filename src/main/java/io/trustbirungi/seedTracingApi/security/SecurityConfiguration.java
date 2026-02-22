@@ -7,10 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,46 +28,55 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
     private UserPrincipalDetailsService userPrincipalDetailsService;
     private UserRepository userRepository;
+    private CorsConfigurer<HttpSecurity> corsConfigurer;
 
     public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
         this.userRepository = userRepository;
     }
 
-    @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors().and()
-                // remove csrf and state in session because in jwt we do not need them
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    // Define the Customizer bean
+    @Bean
+    public Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
+        return cors -> cors.configurationSource(corsConfigurationSource());
+    }
 
-                .and()
+    //TODO: Define a SecurityFilterChain bean that complies with Spring Security 7
+
+    //TODO: Reconfigure the JwtAuthenticationFilter and JwtAuthorizationFilter to comply with Spring Security 7
+
+
+    /*protected void configure(HttpSecurity http) throws Exception {
+        http
+                .cors(corsCustomizer())
+                // remove csrf and state in session because in jwt we do not need them
+                .csrf(AbstractHttpConfigurer::disable)
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                //.and()
                 // add jwt filters (1. authentication, 2. authorization)
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-                .authorizeRequests()
+                //.addFilter(new JwtAuthenticationFilter())
+                //.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
+                //.authorizeRequests()
                 // configure access rules
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/v1/*").hasRole("MANAGER")
                 .antMatchers("/api/v1/*").hasRole("ADMIN")
                 .anyRequest().authenticated();
-    }
+    }*/
 
     @Bean
     DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(this.userPrincipalDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
 
         return daoAuthenticationProvider;
     }

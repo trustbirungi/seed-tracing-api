@@ -1,6 +1,6 @@
 package io.trustbirungi.seedTracingApi.dto;
 
-import javax.persistence.Column;
+//import javax.persistence.Column;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package io.trustbirungi.seedTracingApi.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.Data;
 

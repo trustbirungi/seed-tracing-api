@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>25</java.version>
 		<springboot.version>4.1.0-M2</springboot.version>
+		<flyway.version>12.0.2</flyway.version>
 	</properties>
 
 	<dependencies>
@@ -35,6 +36,7 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
 		</dependency>
 
 		<dependency>
@@ -66,7 +68,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--TODO: Update -->
 		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
@@ -89,7 +90,7 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-maven-plugin</artifactId>
-			<version>6.5.5</version>
+			<version>${flyway.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
@@ -108,7 +109,7 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>3.16.0</version>
+			<version>4.5.1</version>
 		</dependency>
 
 		<!-- Source: https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
@@ -130,7 +131,7 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>6.5.5</version>
+				<version>${flyway.version}</version>
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/<!--db_name--></url>
 					<user><!--db_username--></user>

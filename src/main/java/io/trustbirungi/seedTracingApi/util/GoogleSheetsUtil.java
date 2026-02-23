@@ -18,6 +18,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -46,9 +51,11 @@ public class GoogleSheetsUtil {
 	private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
 		// Load client secrets.
 		InputStream in = GoogleSheetsUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+
 		if (in == null) {
 			throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
 		}
+
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
 		// Build flow and trigger user authorization request.
@@ -57,7 +64,9 @@ public class GoogleSheetsUtil {
 				.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
 				.setAccessType("offline")
 				.build();
+
 		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+
 		return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
 	}
 
@@ -69,25 +78,92 @@ public class GoogleSheetsUtil {
 		// Build a new authorized API client service.
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		final String spreadsheetId = "1X6uoqe23EMmEWrFBbhGk_f-YJfTplfiHoiSu4w3GGVI";
-		final String range = "remote-jobs!C4:K";
+		final String range = getDataRange();
+
 		Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME)
 				.build();
-		ValueRange response = service.spreadsheets().values()
-				.get(spreadsheetId, range)
-				.execute();
+
+
+		ValueRange response = new ValueRange();
+
+		try {
+			response = service.spreadsheets().values()
+					.get(spreadsheetId, range)
+					.execute();
+		} catch (Exception exc) {
+			//exc.printStackTrace();
+		
+			if(exc.getMessage().contains("Bad Request")) {
+				System.out.println("Error");
+				return;
+			}
+		}
+		
+
 		List<List<Object>> values = response.getValues();
+
 		if (values == null || values.isEmpty()) {
 			System.out.println("No data found.");
 		} else {
 			System.out.println("Name, Major");
+
 			for (List row : values) {
 				rowCount++;
 				// Print columns A and E, which correspond to indices 0 and 4.
-				System.out.printf("%s, %s\n", row.get(0), row.get(6));
+				System.out.printf("%s, %s\n", row.get(0), row.get(7));
 			}
 		}
 
 		System.out.println("\n\n" + rowCount);
+		setDataRange(rowCount);
+	}
+
+	/**
+	 * Reads the data range to use for the spreadsheet before each fetch.
+	 * @return dataRange - The data range to be used when fetching from the
+	 * spreadsheet.
+	 */
+	private static String getDataRange() {
+		Path filePath = Paths.get("src/main/resources/static/data-range.txt");
+		String dataRange = "";
+
+		try {
+			String content = Files.readString(filePath).trim();
+			dataRange = content;
+			System.out.println(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return dataRange;
+	}
+
+	/**
+	 * Writes the data range to use for the next fetch from the spreadsheet.
+	 * @param rowCount
+	 */
+	private static void setDataRange(int rowCount) {
+		int nextRow = rowCount + 4;
+
+		String newDataRange = "remote-jobs!C" + nextRow + ":Z";
+		System.out.println(newDataRange);
+
+		Path filePath = Paths.get("src/main/resources/static/data-range.txt");
+
+		try {
+			//Write content to file
+			Files.writeString(filePath, newDataRange, StandardOpenOption.TRUNCATE_EXISTING);
+
+			//Verify file content
+			String content = Files.readString(filePath).trim();
+
+			assert(newDataRange == content);
+			System.out.println(content);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

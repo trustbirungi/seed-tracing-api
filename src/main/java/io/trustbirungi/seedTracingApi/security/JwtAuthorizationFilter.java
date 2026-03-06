@@ -1,38 +1,30 @@
 package io.trustbirungi.seedTracingApi.security;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import io.trustbirungi.seedTracingApi.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import io.trustbirungi.seedTracingApi.repository.UserRepository;
+import org.springframework.web.filter.OncePerRequestFilter;
 import io.trustbirungi.seedTracingApi.entity.User;
 
-/*import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;*/
 import java.io.IOException;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
-public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    private UserRepository userRepository;
+public class JwtAuthorizationFilter extends OncePerRequestFilter {
+    private final UserRepository userRepository;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
-        super(authenticationManager);
+    public JwtAuthorizationFilter(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         // Read the Authorization header, where the JWT token should be
         String header = request.getHeader(JwtProperties.HEADER_STRING);
 
@@ -54,7 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(JwtProperties.HEADER_STRING)
                 .replace(JwtProperties.TOKEN_PREFIX,"");
 
-        if (token != null) {
+        if (!token.isEmpty()) {
             // parse the token and validate it
             String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
                     .build()
@@ -66,8 +58,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             if (userName != null) {
                 User user = userRepository.findByUsername(userName);
                 UserPrincipal principal = new UserPrincipal(user);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
-                return auth;
+                return new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
             }
             return null;
         }

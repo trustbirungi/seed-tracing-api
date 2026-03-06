@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 import io.trustbirungi.seedTracingApi.entity.LoginViewModel;
 
 
@@ -20,18 +21,26 @@ import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private final AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        if ("/login".equals(request.getServletPath()) && "POST".equals(request.getMethod())) {
+            attemptAuthentication(request, response);
+        } else {
+            chain.doFilter(request, response);
+        }
+    }
+
     /* Trigger when we issue POST request to /login
     We also need to pass in {"username":"dan", "password":"dan123"} in the request body
      */
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public void attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
 
         // Grab credentials and map them to login viewmodel
         LoginViewModel credentials = null;
@@ -50,10 +59,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Authenticate user
         Authentication auth = authenticationManager.authenticate(authenticationToken);
 
-        return auth;
+        successfulAuthentication(request, response, auth);
     }
 
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException {
         // Grab principal
         UserPrincipal principal = (UserPrincipal) authResult.getPrincipal();
 

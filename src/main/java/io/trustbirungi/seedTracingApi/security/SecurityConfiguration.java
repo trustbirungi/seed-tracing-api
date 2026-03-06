@@ -6,40 +6,32 @@ import io.trustbirungi.seedTracingApi.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-import io.trustbirungi.seedTracingApi.repository.UserRepository;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    private UserPrincipalDetailsService userPrincipalDetailsService;
-    private UserRepository userRepository;
-    private CorsConfigurer<HttpSecurity> corsConfigurer;
+    private final UserPrincipalDetailsService userPrincipalDetailsService;
+    private final UserRepository userRepository;
 
     public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService, UserRepository userRepository) {
         this.userPrincipalDetailsService = userPrincipalDetailsService;
         this.userRepository = userRepository;
-    }
-
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider());
     }
 
     // Define the Customizer bean
@@ -48,34 +40,32 @@ public class SecurityConfiguration {
         return cors -> cors.configurationSource(corsConfigurationSource());
     }
 
-    //TODO: Define a SecurityFilterChain bean that complies with Spring Security 7
-
-    //TODO: Reconfigure the JwtAuthenticationFilter and JwtAuthorizationFilter to comply with Spring Security 7
-
-
-    /*protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
         http
                 .cors(corsCustomizer())
-                // remove csrf and state in session because in jwt we do not need them
                 .csrf(AbstractHttpConfigurer::disable)
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(new JwtAuthenticationFilter(authManager), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new JwtAuthorizationFilter(userRepository), JwtAuthenticationFilter.class)
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/v1/*").hasRole("MANAGER")
+                        .requestMatchers("/api/v1/*").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                );
+        return http.build();
+    }
 
-                //.and()
-                // add jwt filters (1. authentication, 2. authorization)
-                //.addFilter(new JwtAuthenticationFilter())
-                //.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-                //.authorizeRequests()
-                // configure access rules
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/v1/*").hasRole("MANAGER")
-                .antMatchers("/api/v1/*").hasRole("ADMIN")
-                .anyRequest().authenticated();
-    }*/
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
     @Bean
     DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(this.userPrincipalDetailsService);
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider(userPrincipalDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;

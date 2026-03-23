@@ -47,4 +47,36 @@ public class BuyersAnalysisDto {
 	public void setBuyersDistricts(Map<String, Integer> buyersDistricts) {
 		this.buyersDistricts = buyersDistricts;
 	}
+
+	public double getMaleBuyersPercent() {
+		return maleBuyersPercent;
+	}
+
+	public double getFemaleBuyersPercent() {
+		return femaleBuyersPercent;
+	}
+
+	public int getMaleBuyersAverageAge() {
+		return maleBuyersAverageAge;
+	}
+
+	public int getFemaleBuyersAverageAge() {
+		return femaleBuyersAverageAge;
+	}
+
+	public int getMaleBuyersMedianAge() {
+		return maleBuyersMedianAge;
+	}
+
+	public int getFemaleBuyersMedianAge() {
+		return femaleBuyersMedianAge;
+	}
+
+	public Map<String, Integer> getAgeCohorts() {
+		return ageCohorts;
+	}
+
+	public Map<String, Integer> getBuyersDistricts() {
+		return buyersDistricts;
+	}
 }

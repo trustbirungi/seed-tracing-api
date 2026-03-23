@@ -71,4 +71,173 @@ public class Buyers {
 
     @Column(name = "instance_id")
     private String instanceId;
+
+    // Getters and Setters
+    public String getMetaInstanceId() {
+        return metaInstanceId;
+    }
+
+    public void setMetaInstanceId(String metaInstanceId) {
+        this.metaInstanceId = metaInstanceId;
+    }
+
+    public String getMetaModelVersion() {
+        return metaModelVersion;
+    }
+
+    public void setMetaModelVersion(String metaModelVersion) {
+        this.metaModelVersion = metaModelVersion;
+    }
+
+    public String getMetaUiVersion() {
+        return metaUiVersion;
+    }
+
+    public void setMetaUiVersion(String metaUiVersion) {
+        this.metaUiVersion = metaUiVersion;
+    }
+
+    public String getMetaSubmissionDate() {
+        return metaSubmissionDate;
+    }
+
+    public void setMetaSubmissionDate(String metaSubmissionDate) {
+        this.metaSubmissionDate = metaSubmissionDate;
+    }
+
+    public String getMetaIsComplete() {
+        return metaIsComplete;
+    }
+
+    public void setMetaIsComplete(String metaIsComplete) {
+        this.metaIsComplete = metaIsComplete;
+    }
+
+    public String getMetaDateMarkedAsComplete() {
+        return metaDateMarkedAsComplete;
+    }
+
+    public void setMetaDateMarkedAsComplete(String metaDateMarkedAsComplete) {
+        this.metaDateMarkedAsComplete = metaDateMarkedAsComplete;
+    }
+
+    public String getBiodataNote() {
+        return biodataNote;
+    }
+
+    public void setBiodataNote(String biodataNote) {
+        this.biodataNote = biodataNote;
+    }
+
+    public String getConsent() {
+        return consent;
+    }
+
+    public void setConsent(String consent) {
+        this.consent = consent;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBuyerSex() {
+        return buyerSex;
+    }
+
+    public void setBuyerSex(String buyerSex) {
+        this.buyerSex = buyerSex;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getFarmerGroup() {
+        return farmerGroup;
+    }
+
+    public void setFarmerGroup(String farmerGroup) {
+        this.farmerGroup = farmerGroup;
+    }
+
+    public Integer getFemaleMembersQuantity() {
+        return femaleMembersQuantity;
+    }
+
+    public void setFemaleMembersQuantity(Integer femaleMembersQuantity) {
+        this.femaleMembersQuantity = femaleMembersQuantity;
+    }
+
+    public Integer getMaleMembersQuantity() {
+        return maleMembersQuantity;
+    }
+
+    public void setMaleMembersQuantity(Integer maleMembersQuantity) {
+        this.maleMembersQuantity = maleMembersQuantity;
+    }
+
+    public String getBuyerDistrict() {
+        return buyerDistrict;
+    }
+
+    public void setBuyerDistrict(String buyerDistrict) {
+        this.buyerDistrict = buyerDistrict;
+    }
+
+    public String getBuyerCounty() {
+        return buyerCounty;
+    }
+
+    public void setBuyerCounty(String buyerCounty) {
+        this.buyerCounty = buyerCounty;
+    }
+
+    public String getBuyerSubcounty() {
+        return buyerSubcounty;
+    }
+
+    public void setBuyerSubcounty(String buyerSubcounty) {
+        this.buyerSubcounty = buyerSubcounty;
+    }
+
+    public String getBuyerParish() {
+        return buyerParish;
+    }
+
+    public void setBuyerParish(String buyerParish) {
+        this.buyerParish = buyerParish;
+    }
+
+    public String getBuyerVillage() {
+        return buyerVillage;
+    }
+
+    public void setBuyerVillage(String buyerVillage) {
+        this.buyerVillage = buyerVillage;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
 }

@@ -106,4 +106,84 @@ public class SeedMultipliersAnalysisDto {
 	public void setPlantingMethodsFrequency(Map<String, Integer> plantingMethodsFrequency) {
 		this.plantingMethodsFrequency = plantingMethodsFrequency;
 	}
+
+	public double getMalePercent() {
+		return malePercent;
+	}
+
+	public double getFemalePercent() {
+		return femalePercent;
+	}
+
+	public int getMaleAverageAge() {
+		return maleAverageAge;
+	}
+
+	public int getFemaleAverageAge() {
+		return femaleAverageAge;
+	}
+
+	public int getMaleMedianAge() {
+		return maleMedianAge;
+	}
+
+	public int getFemaleMedianAge() {
+		return femaleMedianAge;
+	}
+
+	public Map<String, Integer> getMaleAgeCohorts() {
+		return maleAgeCohorts;
+	}
+
+	public Map<String, Integer> getFemaleAgeCohorts() {
+		return femaleAgeCohorts;
+	}
+
+	public double getIndividualMultipliersPercent() {
+		return individualMultipliersPercent;
+	}
+
+	public double getGroupMultipliersPercent() {
+		return groupMultipliersPercent;
+	}
+
+	public int getAverageGroupSize() {
+		return averageGroupSize;
+	}
+
+	public int getMedianGroupSize() {
+		return medianGroupSize;
+	}
+
+	public int getAverageFemaleMembersPerGroup() {
+		return averageFemaleMembersPerGroup;
+	}
+
+	public int getAverageMaleMembersPerGroup() {
+		return averageMaleMembersPerGroup;
+	}
+
+	public Map<String, Integer> getMultipliersDistricts() {
+		return multipliersDistricts;
+	}
+
+	public Map<String, Integer> getPlantingMaterialsFrequency() {
+		return plantingMaterialsFrequency;
+	}
+
+	public Map<String, Integer> getPlantingMaterialsVarietiesFrequency() {
+		return plantingMaterialsVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getBananaPlantingVarietiesFrequency() {
+		return bananaPlantingVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getPotatoPlantingVarietiesFrequency() {
+		return potatoPlantingVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getPlantingMethodsFrequency() {
+		return plantingMethodsFrequency;
+	}
 }

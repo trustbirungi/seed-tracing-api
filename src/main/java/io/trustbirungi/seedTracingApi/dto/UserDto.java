@@ -31,4 +31,24 @@ public class UserDto {
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public String getPermissions() {
+		return permissions;
+	}
 }

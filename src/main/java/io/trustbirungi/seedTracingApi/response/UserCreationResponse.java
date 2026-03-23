@@ -17,4 +17,20 @@ public class UserCreationResponse {
 		this.timestamp = timestamp;
 		this.userDto = userDto;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public UserDto getUserDto() {
+		return userDto;
+	}
 }

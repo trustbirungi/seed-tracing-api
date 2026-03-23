@@ -146,4 +146,116 @@ public class TechUptakeAnalysisDto {
 	public void setMedianCurrentPlantingMaterialsStock(int medianCurrentPlantingMaterialsStock) {
 		this.medianCurrentPlantingMaterialsStock = medianCurrentPlantingMaterialsStock;
 	}
+
+	public Map<String, Integer> getPlantingMaterialsFrequency() {
+		return plantingMaterialsFrequency;
+	}
+
+	public Map<String, Integer> getPlantingVarietiesFrequency() {
+		return plantingVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getBananaVarietiesFrequency() {
+		return bananaVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getPotatoVarietiesFrequency() {
+		return potatoVarietiesFrequency;
+	}
+
+	public Map<String, Integer> getPlantingTechFrequency() {
+		return plantingTechFrequency;
+	}
+
+	public int getAverageBananaPlantingMaterialsProduced() {
+		return averageBananaPlantingMaterialsProduced;
+	}
+
+	public int getMedianBananaPlantingMaterialsProduced() {
+		return medianBananaPlantingMaterialsProduced;
+	}
+
+	public int getAveragePotatoPlantingMaterialsProduced() {
+		return averagePotatoPlantingMaterialsProduced;
+	}
+
+	public int getMedianPotatoPlantingMaterialsProduced() {
+		return medianPotatoPlantingMaterialsProduced;
+	}
+
+	public int getAverageNumberOfProductionTimes() {
+		return averageNumberOfProductionTimes;
+	}
+
+	public int getMedianNumberOfProductionTimes() {
+		return medianNumberOfProductionTimes;
+	}
+
+	public int getAverageIndividualBuyersQuantityPerSeason() {
+		return averageIndividualBuyersQuantityPerSeason;
+	}
+
+	public int getMedianIndividualBuyersQuantityPerSeason() {
+		return medianIndividualBuyersQuantityPerSeason;
+	}
+
+	public int getFemaleBuyersAverageAge() {
+		return femaleBuyersAverageAge;
+	}
+
+	public int getFemaleBuyersMedianAge() {
+		return femaleBuyersMedianAge;
+	}
+
+	public int getMaleBuyersAverageAge() {
+		return maleBuyersAverageAge;
+	}
+
+	public int getMaleBuyersMedianAge() {
+		return maleBuyersMedianAge;
+	}
+
+	public Map<String, Integer> getSellingPointsFrequency() {
+		return sellingPointsFrequency;
+	}
+
+	public int getAverageAnnualProductionCapacity() {
+		return averageAnnualProductionCapacity;
+	}
+
+	public int getMedianAnnualProductionCapacity() {
+		return medianAnnualProductionCapacity;
+	}
+
+	public int getAverageAnnualProductionSold() {
+		return averageAnnualProductionSold;
+	}
+
+	public int getMedianAnnualProductionSold() {
+		return medianAnnualProductionSold;
+	}
+
+	public int getAverageAnnualProductionGivenAway() {
+		return averageAnnualProductionGivenAway;
+	}
+
+	public int getMedianAnnualProductionGivenAway() {
+		return medianAnnualProductionGivenAway;
+	}
+
+	public int getAverageAnnualProductionLost() {
+		return averageAnnualProductionLost;
+	}
+
+	public int getMedianAnnualProductionLost() {
+		return medianAnnualProductionLost;
+	}
+
+	public int getAverageCurrentPlantingMaterialsStock() {
+		return averageCurrentPlantingMaterialsStock;
+	}
+
+	public int getMedianCurrentPlantingMaterialsStock() {
+		return medianCurrentPlantingMaterialsStock;
+	}
 }

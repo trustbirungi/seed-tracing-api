@@ -51,4 +51,40 @@ public class TechDiffusionAnalysisDto {
 	public void setTrainedGroupsDistricts(Map<String, Integer> trainedGroupsDistricts) {
 		this.trainedGroupsDistricts = trainedGroupsDistricts;
 	}
+
+	public Map<String, Integer> getTrainingOrgTraineesCount() {
+		return trainingOrgTraineesCount;
+	}
+
+	public double getFarmersWhoTrainedOthersPercent() {
+		return farmersWhoTrainedOthersPercent;
+	}
+
+	public double getFarmersWhoTrainedOtherGroupsPercent() {
+		return farmersWhoTrainedOtherGroupsPercent;
+	}
+
+	public double getFemaleTrainedFarmersPercent() {
+		return femaleTrainedFarmersPercent;
+	}
+
+	public double getMaleTrainedFarmersPercent() {
+		return maleTrainedFarmersPercent;
+	}
+
+	public double getTrainedFarmersThatTrainedOtherFarmersPercent() {
+		return trainedFarmersThatTrainedOtherFarmersPercent;
+	}
+
+	public Map<Integer, Integer> getTrainedFarmersRankings() {
+		return trainedFarmersRankings;
+	}
+
+	public Map<String, Integer> getTrainedFarmersDistricts() {
+		return trainedFarmersDistricts;
+	}
+
+	public Map<String, Integer> getTrainedGroupsDistricts() {
+		return trainedGroupsDistricts;
+	}
 }

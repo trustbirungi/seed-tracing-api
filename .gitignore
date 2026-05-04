@@ -42,3 +42,10 @@ build/
 ### DS Store ###
 .DS_Store
 
+### Vibe Coding Artifacts ###
+CHANGES_SUMMARY.md
+DELIVERY_CHECKLIST.md
+IMPLEMENTATION_SUMMARY.md
+INDEX.md
+README_TESTS.md
+TEST_DOCUMENTATION.md
